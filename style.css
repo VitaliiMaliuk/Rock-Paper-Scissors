@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color:lightblue;
+    background-color: #9e9e9e;
     box-sizing: border-box;
 }
 .container{
@@ -23,7 +23,7 @@ body{
 .gameLogger{
     font-weight: 800;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: rgb(206, 108, 28);
+    color: #dc7027;
     height: 30px;
     text-shadow: rgba(1, 12, 46, 100) 2px 2px 5px;
     font-size: 25px;
@@ -34,13 +34,13 @@ body{
     font-weight:900;
     text-transform: uppercase;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: rgb(255, 255, 255);
+    color: #5C5F58;
     height: 100px;
     padding: 20px;
 }
 
 .scoreCounter {
-    color: white;
+    color: #565656;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     display: inline-flex;
