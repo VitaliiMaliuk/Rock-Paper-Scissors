@@ -1,43 +1,73 @@
+let playerWins = 0;
+let computerWins = 0;
 
-function game() {
-  let compArray = ["Rock", "Paper", "Scissors"];
-  let countPlayer = 0;
-  let countComp = 0;
-  let gameWinner;
-  for (let i = 0; i < 5; i++) {
-    let playerRandomWord = prompt('Ставка игрока').toLowerCase();
-    let compRandomWord =
-      compArray[Math.floor(Math.random() * compArray.length)].toLowerCase();
-    if (
-      (playerRandomWord === "rock" && compRandomWord === "rock") ||
-      (playerRandomWord === "paper" && compRandomWord === "paper") ||
-      (playerRandomWord === "scissors" && compRandomWord === "scissors")
-    ) {
-      countPlayer += 0;
-      countComp += 0;
-    } else if (
-      (playerRandomWord === "rock" && compRandomWord === "scissors") ||
-      (playerRandomWord === "paper" && compRandomWord === "rock") ||
-      (playerRandomWord === "scissors" && compRandomWord === "paper")
-    ) {
-      countPlayer += 1;
-    } else if (
-      (playerRandomWord === "rock" && compRandomWord === "paper") ||
-      (playerRandomWord === "paper" && compRandomWord === "scissors") ||
-      (playerRandomWord === "scissors" && compRandomWord === "rock")
-    ) {
-      countComp += 1;
+const buttonClicked = document.querySelectorAll("button");
+buttonClicked.forEach(buttonClicked => {
+  buttonClicked.addEventListener("click", (e) => {
+    let playerSelection = e.target.className;
+    let computerSelection = computerPlay()
+    playRound(playerSelection, computerSelection);
+    if ((playerWins === 5) || (computerWins === 5)) {
+      finalScore();
     }
-    console.log(countPlayer);
-    console.log(countComp);
+  });
+});
+
+function computerPlay() {
+  const rpsChoice = ["rock", "paper", "scissors"];
+    let randomNumber = Math.floor(Math.random()*3);
+    return rpsChoice[randomNumber];
+}
+
+function playRound(playerSelection, computerPlay) {
+  let gameLogger = document.querySelector(".gameLogger");
+  if (playerSelection === "rock" && computerPlay === "scissors") {
+    playerWins++;
+    gameLogger.textContent = "You Win! Rock beats Scissors";
+  } else if (playerSelection === "paper" && computerPlay === "rock") {
+    playerWins++;
+    gameLogger.textContent = "You Win! Paper beats Rock!";
+  } else if (playerSelection === "scissors" && computerPlay === "paper") {
+    playerWins++;
+    gameLogger.textContent = "You Win! Scissors beats Paper!";
+  } else if (computerPlay === "scissors" && playerSelection === "paper") {
+    computerWins++;
+    gameLogger.textContent = "You Lose! Scissors beats Paper!";
+  } else if (computerPlay === "paper" && playerSelection === "rock") {
+    computerWins++;
+    gameLogger.textContent = "You Lose! Paper beats Rock!";
+  } else if (computerPlay === "rock" && playerSelection === "scissors") {
+    computerWins++;
+    gameLogger.textContent = "You Lose! Rock beats Scissors";
+  } else {
+    gameLogger.textContent = "Its a Draw!";
   }
-  if (countPlayer > countComp) {
-    return (gameWinner = "Player is a Winner");
-  } else if (countPlayer < countComp) {
-    return (gameWinner = "Comp is a Winner");
-  } else if (countPlayer === countComp) {
-    return (gameWinner = "Drow!");
+  gameKeeper();
+}
+
+function finalScore() {
+  let gameWinner = document.querySelector(".gameWinner");
+  if (playerWins > computerWins) {
+    gameWinner.textContent = "You Win!";
+    disableButtons();
+  } else if (playerWins < computerWins) {
+    gameWinner.textContent = "Computer Wins!";
+    disableButtons();
+  } else if (playerWins === computerWins) {
+    gameWinner.textContent = "It's a Tie!";
+    disableButtons();
   }
 }
 
-console.log(game());
+function disableButtons() {
+  buttonClicked.forEach(buttonClicked => {
+    buttonClicked.disabled = true;
+  });
+}
+
+function gameKeeper() {
+  let userScoreNumber = document.querySelector(".userScoreNumber");
+  let computerScoreNumber = document.querySelector(".computerScoreNumber");
+  userScoreNumber.textContent = `${playerWins}`;
+  computerScoreNumber.textContent = `${computerWins}`;
+}
